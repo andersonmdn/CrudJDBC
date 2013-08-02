@@ -38,17 +38,27 @@ public class ListarMarca extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel1.setText("Marcas");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(61, 41, 34, 14);
+        jLabel1.setBounds(61, 41, 60, 18);
+
+        txPesquisa.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jPanel1.add(txPesquisa);
-        txPesquisa.setBounds(60, 70, 430, 20);
+        txPesquisa.setBounds(60, 70, 420, 30);
 
         btPesquisa.setText("Pesquisar");
+        btPesquisa.setBorder(null);
+        btPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btPesquisa);
-        btPesquisa.setBounds(500, 70, 110, 23);
+        btPesquisa.setBounds(490, 70, 90, 30);
 
         tbMarca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,33 +82,40 @@ public class ListarMarca extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbMarca);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(60, 110, 510, 120);
+        jScrollPane1.setBounds(60, 110, 520, 140);
 
         btInserir.setText("Inserir");
+        btInserir.setBorder(null);
         jPanel1.add(btInserir);
-        btInserir.setBounds(90, 410, 63, 23);
+        btInserir.setBounds(60, 290, 70, 50);
 
         btAtualizar.setText("Atualizar");
+        btAtualizar.setBorder(null);
         jPanel1.add(btAtualizar);
-        btAtualizar.setBounds(200, 410, 80, 23);
+        btAtualizar.setBounds(150, 290, 70, 50);
 
         btExcluir.setText("Excluir");
+        btExcluir.setBorder(null);
         jPanel1.add(btExcluir);
-        btExcluir.setBounds(310, 410, 63, 23);
+        btExcluir.setBounds(240, 290, 70, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btPesquisaActionPerformed
 
     /**
      * @param args the command line arguments
