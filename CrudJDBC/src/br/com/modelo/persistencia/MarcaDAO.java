@@ -19,6 +19,7 @@ public interface MarcaDAO {
     List<Marca> getMarca();
     List<Marca> getMarcasByNome(String nome);
     Marca getMarcasById(int id);
+    Marca getMarcaByNome(String nome);
     
     
 }
