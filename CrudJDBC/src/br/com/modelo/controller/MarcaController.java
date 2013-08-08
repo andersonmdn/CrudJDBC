@@ -76,5 +76,9 @@ public class MarcaController {
         MarcaDAO md = new MarcaDAOJDBC();
         return md.getMarcasById(id);
     }
+     public Marca getMarcByNome(String nome) {
+        MarcaDAO md = new MarcaDAOJDBC();
+        return md.getMarcaByNome(nome);
+    }
     
 }
