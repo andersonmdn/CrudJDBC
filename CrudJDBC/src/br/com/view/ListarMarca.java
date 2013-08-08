@@ -4,17 +4,29 @@
  */
 package br.com.view;
 
+import br.com.modelo.controller.MarcaController;
+import br.com.modelo.negocio.Marca;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author anderson_feliciano
  */
 public class ListarMarca extends javax.swing.JFrame {
-
+    private MarcaTableModel modelo;
     /**
      * Creates new form ListarMarca
      */
     public ListarMarca() {
         initComponents();
+        List<Marca> lista = new ArrayList<Marca>();
+        MarcaController mc = new MarcaController();
+        lista = mc.getMarca();
+        modelo = new MarcaTableModel(lista);
+        tbMarca.setModel(modelo);
+        
     }
 
     /**
@@ -29,14 +41,13 @@ public class ListarMarca extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txPesquisa = new javax.swing.JTextField();
-        btPesquisa = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbMarca = new javax.swing.JTable();
         btInserir = new javax.swing.JButton();
         btAtualizar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -47,18 +58,18 @@ public class ListarMarca extends javax.swing.JFrame {
         jLabel1.setBounds(61, 41, 60, 18);
 
         txPesquisa.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jPanel1.add(txPesquisa);
-        txPesquisa.setBounds(60, 70, 420, 30);
-
-        btPesquisa.setText("Pesquisar");
-        btPesquisa.setBorder(null);
-        btPesquisa.addActionListener(new java.awt.event.ActionListener() {
+        txPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPesquisaActionPerformed(evt);
+                txPesquisaActionPerformed(evt);
             }
         });
-        jPanel1.add(btPesquisa);
-        btPesquisa.setBounds(490, 70, 90, 30);
+        txPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txPesquisaFocusLost(evt);
+            }
+        });
+        jPanel1.add(txPesquisa);
+        txPesquisa.setBounds(60, 70, 420, 30);
 
         tbMarca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,7 +83,7 @@ public class ListarMarca extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -80,17 +91,29 @@ public class ListarMarca extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbMarca);
+        tbMarca.getColumnModel().getColumn(0).setResizable(false);
+        tbMarca.getColumnModel().getColumn(0).setPreferredWidth(10);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(60, 110, 520, 140);
 
         btInserir.setText("Inserir");
-        btInserir.setBorder(null);
+        btInserir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInserirActionPerformed(evt);
+            }
+        });
         jPanel1.add(btInserir);
         btInserir.setBounds(60, 290, 70, 50);
 
         btAtualizar.setText("Atualizar");
         btAtualizar.setBorder(null);
+        btAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btAtualizar);
         btAtualizar.setBounds(150, 290, 70, 50);
 
@@ -113,49 +136,45 @@ public class ListarMarca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btPesquisaActionPerformed
+    private void txPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPesquisaActionPerformed
+        MarcaController mc = new MarcaController();
+        List<Marca> lista = new ArrayList<Marca>();
+        lista = mc.buscarMarcaByNome(txPesquisa.getText());
+        modelo.limpar();
+        modelo = new MarcaTableModel(lista);
+        tbMarca.setModel(modelo);
+        
+        
+    }//GEN-LAST:event_txPesquisaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListarMarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListarMarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListarMarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListarMarca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void txPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txPesquisaFocusLost
+
+    }//GEN-LAST:event_txPesquisaFocusLost
+
+    private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+        InserirMarcaGUI im = new InserirMarcaGUI(modelo);
+        im.setVisible(true);
+        
+    }//GEN-LAST:event_btInserirActionPerformed
+
+    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
+        int selecionado = -1;
+        selecionado = tbMarca.getSelectedRow();
+        
+        if(selecionado >=0){
+            Integer idMarca = (Integer)modelo.getValueAt(selecionado, 0);
+        
+        AtualizarMarcaGUI at = new AtualizarMarcaGUI(selecionado, idMarca, modelo);
+        at.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecionar uma linha");
         }
-        //</editor-fold>
+    }//GEN-LAST:event_btAtualizarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListarMarca().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btInserir;
-    private javax.swing.JButton btPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
