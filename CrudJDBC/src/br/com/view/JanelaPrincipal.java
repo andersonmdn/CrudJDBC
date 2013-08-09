@@ -72,12 +72,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMarcaActionPerformed
-        ListarMarca lm = new ListarMarca();
-        lm.setVisible(true);
+        //ListarMarca lm = new ListarMarca();
+        //lm.setVisible(true);
     }//GEN-LAST:event_btMarcaActionPerformed
 
     private void btModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModeloActionPerformed
-        
+        ListarModelo lmo = new ListarModelo();
+        lmo.setVisible(true);
     }//GEN-LAST:event_btModeloActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
