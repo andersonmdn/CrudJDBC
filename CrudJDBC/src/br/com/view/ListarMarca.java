@@ -15,7 +15,9 @@ import javax.swing.JOptionPane;
  * @author anderson_feliciano
  */
 public class ListarMarca extends javax.swing.JFrame {
+
     private MarcaTableModel modelo;
+
     /**
      * Creates new form ListarMarca
      */
@@ -26,7 +28,7 @@ public class ListarMarca extends javax.swing.JFrame {
         lista = mc.getMarca();
         modelo = new MarcaTableModel(lista);
         tbMarca.setModel(modelo);
-        
+
     }
 
     /**
@@ -119,6 +121,11 @@ public class ListarMarca extends javax.swing.JFrame {
 
         btExcluir.setText("Excluir");
         btExcluir.setBorder(null);
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
         jPanel1.add(btExcluir);
         btExcluir.setBounds(240, 290, 70, 50);
 
@@ -143,34 +150,48 @@ public class ListarMarca extends javax.swing.JFrame {
         modelo.limpar();
         modelo = new MarcaTableModel(lista);
         tbMarca.setModel(modelo);
-        
-        
+
+
     }//GEN-LAST:event_txPesquisaActionPerformed
 
     private void txPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txPesquisaFocusLost
-
     }//GEN-LAST:event_txPesquisaFocusLost
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         InserirMarcaGUI im = new InserirMarcaGUI(modelo);
         im.setVisible(true);
-        
+
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
         int selecionado = -1;
         selecionado = tbMarca.getSelectedRow();
-        
-        if(selecionado >=0){
-            Integer idMarca = (Integer)modelo.getValueAt(selecionado, 0);
-        
-        AtualizarMarcaGUI at = new AtualizarMarcaGUI(selecionado, idMarca, modelo);
-        at.setVisible(true);
-        }else{
+
+        if (selecionado >= 0) {
+            Integer idMarca = (Integer) modelo.getValueAt(selecionado, 0);
+
+            AtualizarMarcaGUI at = new AtualizarMarcaGUI(selecionado, idMarca, modelo);
+            at.setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(null, "Selecionar uma linha");
         }
     }//GEN-LAST:event_btAtualizarActionPerformed
 
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        int selecionado = -1;
+        selecionado = tbMarca.getSelectedRow();
+
+        if (selecionado >= 0) {
+
+            Integer id = (Integer) modelo.getValueAt(selecionado, 0);
+            MarcaController mc = new MarcaController();
+
+            mc.excluir(id);
+            modelo.removeMarca(selecionado);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecionar uma linha");
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAtualizar;
     private javax.swing.JButton btExcluir;
